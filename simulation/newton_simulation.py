@@ -278,6 +278,10 @@ class NewtonSimulation:
             enable_self_collisions=False,
         )
 
+        # Newton's MJCF parser may not create the floor geom as a collider.
+        # Explicitly add a ground plane to ensure foot-ground contacts work.
+        builder.add_ground_plane()
+
         # Configure PD gains for all actuated DOFs
         # Newton joint_q layout for floating base: [x,y,z, qx,qy,qz,qw, j0,j1,...j11]
         # The free joint has 7 q-coords and 6 qd-coords

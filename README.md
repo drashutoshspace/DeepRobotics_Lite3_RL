@@ -13,7 +13,8 @@ Reinforcement learning locomotion controller for the [Deep Robotics Lite3](https
 │   └── *policy_runner*     # ONNX inference wrapper
 ├── simulation/             # Python simulation scripts
 │   ├── mujoco_simulation.py
-│   └── pybullet_simulation.py
+│   ├── pybullet_simulation.py
+│   └── newton_simulation.py
 ├── models/
 │   ├── pretrained/         # PPO policy (ONNX) + pt-to-onnx converter
 │   └── description/        # MJCF files + meshes
@@ -95,6 +96,59 @@ cmake .. -DBUILD_PLATFORM=arm -DBUILD_SIM=OFF -DSEND_REMOTE=OFF
 make -j
 ./rl_deploy
 ```
+
+## Newton Simulator (Sim-to-Sim)
+
+GPU-accelerated alternative using the [Newton](https://github.com/newton-physics/newton) physics engine (NVIDIA/DeepMind/Disney). Uses the MuJoCo Warp solver backend for physics-matched sim2sim validation.
+
+### Prerequisites
+
+```bash
+pip install -r requirements_newton.txt
+```
+
+Requires NVIDIA GPU with driver >= 545. CPU fallback available with `--device cpu`.
+
+### Run (standalone — no C++ controller needed)
+
+```bash
+cd simulation/
+
+# Flat ground
+python newton_simulation.py
+
+# Stair terrain
+python newton_simulation.py --scene stair
+
+# CPU fallback
+python newton_simulation.py --device cpu
+
+# Headless (no viewer)
+python newton_simulation.py --headless
+```
+
+The robot goes through a 2-second warmup (standup with stiff PD control), then switches to RL policy control automatically.
+
+### Run (UDP mode — with existing C++ controller)
+
+```bash
+# Terminal 1: Newton simulator
+cd simulation/
+python newton_simulation.py --mode udp
+
+# Terminal 2: C++ controller (same as MuJoCo workflow)
+cd build/
+./rl_deploy
+```
+
+### Controls (standalone mode, in terminal)
+
+- `w/s` - forward / backward
+- `a/d` - strafe left / right
+- `q/e` - rotate left / right
+- `space` - stop movement
+- `r` - reset robot
+- `ESC` - quit
 
 ## Acknowledgements
 
