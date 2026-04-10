@@ -1,0 +1,6 @@
+newton
+onnxruntime
+numpy
+trimesh
+mujoco-warp
+pyglet>=2.0

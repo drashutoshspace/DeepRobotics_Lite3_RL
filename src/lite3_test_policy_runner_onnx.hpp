@@ -90,7 +90,7 @@ public:
         
         
         // .onnx model需要单独生成
-        model_path_ = GetAbsPath() + "/../policy/ppo/policy.onnx";        
+        model_path_ = GetAbsPath() + "/../models/pretrained/policy.onnx";        
         
         // 调试信息
         std::cout << "[ONNX INIT] Loading model: " << model_path_ << std::endl;

@@ -48,7 +48,7 @@ Lite3TestPolicyRunnerONNX::Lite3TestPolicyRunnerONNX(std::string policy_name)
       joint_pos_rl(12),
       joint_vel_rl(12) {
 
-    model_path_ = GetAbsPath() + "/../policy/ppo/policy.onnx";
+    model_path_ = GetAbsPath() + "/../models/pretrained/policy.onnx";
     std::cout << "[ONNX INIT] Loading model: " << model_path_ << std::endl;
 
     ort_->session_options.SetIntraOpNumThreads(1);

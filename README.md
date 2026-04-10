@@ -53,11 +53,19 @@ cd build/
 
 ### Controls (in Terminal 2)
 
+**State transitions:**
 - `z` - stand up (default position)
 - `c` - switch to RL control mode
+
+**Movement (in RL mode):**
 - `w/s` - forward / backward
 - `a/d` - strafe left / right
 - `q/e` - rotate left / right
+
+**Stopping:**
+- `r` - emergency stop (enters joint damping mode, works from any state)
+- `z` - return to standing pose (controlled transition out of RL mode)
+- `Ctrl+C` - kill the process
 
 ## Policy
 
